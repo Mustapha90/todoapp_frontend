@@ -11,5 +11,8 @@ npm start
 
 The app will connect with an already deployed backend in heroku, check the backend repo [here](https://github.com/Mustapha90/todoapp_backend)
 
+## Live demo
+To test the demo app you can find it on heroku [here]()
+
 
 
