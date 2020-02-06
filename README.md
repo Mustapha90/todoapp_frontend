@@ -10,4 +10,4 @@ cd todoapp_frontend
 npm start
 ```
 
-The app will connect with an already deployed backend in heroku, check the backend repo [here](https://todoapp-frontend-mus.herokuapp.com/
+The app will connect with an already deployed backend in heroku, check the backend repo [here](https://todoapp-frontend-mus.herokuapp.com/)
