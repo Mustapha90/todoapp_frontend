@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoItem from "./TodoItem";
 
-const API_PATH="https://todoapp-backend-mus.herokuapp.com/api/todoitem";
+const API_PATH="http://localhost:5000/todo_item";
 
 function TodoListManager() {
     const [data, setData] = useState({ items: []});
@@ -15,7 +15,7 @@ function TodoListManager() {
           const result = await axios(
             API_PATH,
           );
-          setData({ items: [...result.data.data] });
+          setData({ items: [...result.data.items] });
           setLoading(false);
         };
         fetchData();
@@ -23,27 +23,27 @@ function TodoListManager() {
 
 
     const handleAddItem = () => {
-        axios.post(API_PATH, { title: input }).then(response => {
+        axios.post(API_PATH, { title: input, isCompleted: false }).then(response => {
             setLoading(true);
             setInput('');
         });
      };
 
     const handleCompleteItem = (item, isCompleted) => {
-        axios.put(API_PATH, { id: item.id, title: item.title, isCompleted: isCompleted }).then(response => {
+        axios.post(API_PATH + '/' + item._id, { isCompleted: isCompleted }).then(response => {
             setLoading(true);
             setInput('');
         });
      };
 
     const handleUpdateItem = (item, newTitle) => {
-        axios.put(API_PATH, { id: item.id, title: newTitle }).then(response => {
+        axios.post(API_PATH + '/' + item._id, { title: newTitle }).then(response => {
             setLoading(true);
         });
     };
 
     const handleDeleteItem = (item) => {
-        axios.delete(API_PATH, { data: { id: item.id } }).then(response => {
+        axios.delete(API_PATH + '/' + item._id).then(response => {
             setLoading(true);
         });
      };
@@ -69,7 +69,7 @@ function TodoListManager() {
                     <div className="list-wrapper">
                       <ul className="d-flex flex-column-reverse todo-list">
                           {data.items ? data.items.map(item => (
-                            <TodoItem key={item.id}
+                            <TodoItem key={item._id}
                                       item={item}
                                       handleDeleteItem={handleDeleteItem}
                                       handleCompleteItem={handleCompleteItem}
